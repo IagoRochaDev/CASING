@@ -40,3 +40,33 @@ def DBScanCluster(points, eps):
 
     drawPoints(plt, points, len(Counter(clustering.labels_).keys()), clustering.labels_, size=2, ax=ax)
     return len(Counter(clustering.labels_).keys()), clustering.labels_
+
+
+##############################   CASING 3D GEOMETRY UTILS
+
+
+def prepare_casing_normals(pcd, k_neighbors: int = 30):
+    """
+    Processa a nuvem de pontos para calcular e orientar consistentemente os vetores normais
+    caso não estejam presentes.
+    """
+    import open3d as o3d
+    if not pcd.has_normals():
+        print(f"\n[CASING Geometry] Estimando vetores normais (k={k_neighbors})...")
+        pcd.estimate_normals(
+            search_param=o3d.geometry.KDTreeSearchParamKNN(knn=k_neighbors)
+        )
+        pcd.orient_normals_consistent_tangent_plane(k=k_neighbors)
+        print("-> Normais estimadas e orientadas com sucesso.")
+    else:
+        print("-> A nuvem de pontos já possui normais.")
+    return pcd
+
+
+def add_gaussian_noise(pcd, std_dev: float = 0.01):
+    """Adiciona ruído gaussiano às coordenadas da nuvem de pontos."""
+    import open3d as o3d
+    points = np.asarray(pcd.points)
+    noise = np.random.normal(0, std_dev, size=points.shape)
+    pcd.points = o3d.utility.Vector3dVector(points + noise)
+    return pcd
