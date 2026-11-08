@@ -86,3 +86,26 @@ def drawPoints(plt, points, n_components, labels, size=0.7, ax=None, flip_y=Fals
     ax.set_xlim(min_x, max_x)
     ax.set_ylim(min_y, max_y)
 
+
+##############################   CASING 3D DRAWING
+
+
+def drawPointCloudClusters(pcd, n_components: int, labels: np.ndarray, window_name: str = "CASING 3D Clusters", show_normals: bool = False):
+    """
+    Renderiza uma nuvem de pontos 3D no Open3D, atribuindo uma cor distinta para cada cluster.
+    """
+    import open3d as o3d
+    cmap = cm.get_cmap("tab10" if n_components <= 10 else "tab20")
+    max_label = max(labels.max(), 1)
+    colors = cmap((labels % 20) / 20.0)[:, :3]
+
+    pcd.colors = o3d.utility.Vector3dVector(colors)
+    o3d.visualization.draw_geometries(
+        [pcd],
+        window_name=window_name,
+        point_show_normal=show_normals,
+        width=1024,
+        height=768
+    )
+
+
