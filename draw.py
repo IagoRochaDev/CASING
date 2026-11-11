@@ -95,7 +95,7 @@ def drawPointCloudClusters(pcd, n_components: int, labels: np.ndarray, window_na
     Renderiza uma nuvem de pontos 3D no Open3D, atribuindo uma cor distinta para cada cluster.
     """
     import open3d as o3d
-    cmap = cm.get_cmap("tab10" if n_components <= 10 else "tab20")
+    cmap = plt.colormaps["tab10" if n_components <= 10 else "tab20"]
     max_label = max(labels.max(), 1)
     colors = cmap((labels % 20) / 20.0)[:, :3]
 
