@@ -66,7 +66,7 @@ def main():
     parser.add_argument("--model", type=str, default="cube", choices=["cube", "custom"], help="Tipo de modelo: 'cube' sintético ou 'custom' via arquivo")
     parser.add_argument("--pointsPerFace", type=int, default=150, help="Número de pontos por face para o modelo do cubo (padrão: 150 = 900 pontos)")
     parser.add_argument("--noise", type=float, default=0.0, help="Desvio padrão do ruído gaussiano a injetar (padrão: 0.0)")
-    parser.add_argument("--epsilon", type=float, default=1.8, help="Limiar epsilon do grafo CASING (padrão: 1.8)")
+    parser.add_argument("--epsilon", type=float, default=2.1, help="Limiar epsilon do grafo CASING (padrão: 1.8)")
     parser.add_argument("--density", type=float, default=0.0, help="Expoente de densidade herdado do SING (padrão: 0.0)")
     parser.add_argument("--threshold", type=float, default=0.85, help="Threshold do produto escalar para descontinuidade normal (padrão: 0.85)")
     parser.add_argument("--penalty", type=float, default=10.0, help="Fator de penalidade para quinas/arestas vivas (padrão: 10.0)")
